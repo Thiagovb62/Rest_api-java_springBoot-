@@ -1,4 +1,4 @@
-package com.example.apirest.Controller;
+package com.example.apirest.Controller.Calculator;
 
 import org.springframework.web.bind.annotation.RestController;
 

@@ -1,4 +1,4 @@
-package com.example.apirest.Controller;
+package com.example.apirest.Controller.Hello;
 
 import com.example.apirest.Greeting;
 import java.util.concurrent.atomic.AtomicLong;
