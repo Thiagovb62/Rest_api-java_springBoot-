@@ -48,13 +48,11 @@ public class PersonServices {
 
         return personRepository.save(person);
     }
-    public String delete(Long id){
+    public void delete(Long id){
         logger.info("delete a person");
 
         var entity = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person not found"));
         personRepository.delete(entity);
-
-        return "Deletado com sucesso!";
     };
 
 }
