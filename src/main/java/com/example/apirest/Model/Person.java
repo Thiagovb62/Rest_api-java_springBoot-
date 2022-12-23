@@ -1,13 +1,24 @@
 package com.example.apirest.Model;
 
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
+@Table(name = "person")
 public class Person implements Serializable {
+
     private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "full_name", nullable = false, length = 80)
     private String name;
+    @Column( nullable = false, length = 80)
     private Integer age;
+    @Column( nullable = true, length = 80)
     private String address;
 
     public Person() {
