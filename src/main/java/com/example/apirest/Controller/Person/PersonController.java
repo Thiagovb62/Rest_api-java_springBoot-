@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 
 @RestController
@@ -17,6 +18,10 @@ public class PersonController {
     @RequestMapping(value = "/",method = RequestMethod.GET , produces = MediaType.APPLICATION_JSON_VALUE)
         public Person findById(@RequestParam(value = "id", defaultValue = "1") String id){
             return personServices.findById(id);
+        }
+        @RequestMapping(value = "/all",method = RequestMethod.GET , produces = MediaType.APPLICATION_JSON_VALUE)
+        public List<Person> findAll(){
+            return  personServices.findAll();
         }
 
 }
