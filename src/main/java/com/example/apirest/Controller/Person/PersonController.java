@@ -1,7 +1,8 @@
 package com.example.apirest.Controller.Person;
 
-import com.example.apirest.Model.Person;
 import com.example.apirest.Services.PersonServices;
+import com.example.apirest.data.vo.v1.PersonVO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,30 +12,30 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/Person")
 public class PersonController {
     @Autowired
-     private PersonServices personServices;
+     private PersonServices PersonVOServices;
 
         @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-            public Person findById(@PathVariable(value = "id") Long id){
-                return personServices.findById(id);
+            public PersonVO findById(@PathVariable(value = "id") Long id){
+                return PersonServices.findById(id);
         }
         @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
-            public List<Person> findAll(){
-                return  personServices.findAll();
+            public List<PersonVO> findAll(){
+                return  PersonServices.findAll();
         }
         @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-            public Person create(@RequestBody Person person){
-                return personServices.create(person);
+            public PersonVO create(@RequestBody PersonVO PersonVO){
+                return PersonServices.create(PersonVO);
         }
         @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-            public Person update(@RequestBody Person person){
-                return personServices.update(person);
+            public PersonVO update(@RequestBody PersonVO PersonVO){
+                return PersonServices.update(PersonVO);
         }
         @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
             public ResponseEntity<?> delete(@PathVariable(value = "id") Long id){
-                personServices.delete(id);
+                PersonServices.delete(id);
                 return ResponseEntity.noContent().build();
         }
 

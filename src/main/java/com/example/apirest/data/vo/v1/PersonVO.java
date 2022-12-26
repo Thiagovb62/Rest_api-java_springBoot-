@@ -1,27 +1,26 @@
-package com.example.apirest.Model;
+package com.example.apirest.data.vo.v1;
 
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-@Table(name = "person")
-public class Person implements Serializable {
+
+
+public class PersonVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
-    @Column(name = "full_name", nullable = false, length = 80)
+
     private String name;
-    @Column(nullable = false, length = 80)
+
     private Integer age;
-    @Column(nullable = true, length = 80)
+
     private String address;
 
-    public Person() {
+    public PersonVO() {
     }
 
     public Long getId() {
@@ -59,7 +58,7 @@ public class Person implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Person person)) return false;
+        if (!(o instanceof PersonVO person)) return false;
         return id.equals(person.id) && getName().equals(person.getName()) && getAge().equals(person.getAge()) && Objects.equals(getAddress(), person.getAddress());
     }
 
@@ -68,4 +67,3 @@ public class Person implements Serializable {
         return Objects.hash(id, getName(), getAge(), getAddress());
     }
 }
-
