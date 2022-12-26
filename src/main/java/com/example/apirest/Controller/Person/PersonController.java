@@ -15,27 +15,27 @@ import java.util.List;
 @RequestMapping("/Person")
 public class PersonController {
     @Autowired
-     private PersonServices PersonVOServices;
+     private PersonServices personServices;
 
         @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
             public PersonVO findById(@PathVariable(value = "id") Long id){
-                return PersonServices.findById(id);
+                return personServices.findById(id);
         }
         @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
             public List<PersonVO> findAll(){
-                return  PersonServices.findAll();
+                return  personServices.findAll();
         }
         @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
             public PersonVO create(@RequestBody PersonVO PersonVO){
-                return PersonServices.create(PersonVO);
+                return personServices.create(PersonVO);
         }
         @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
             public PersonVO update(@RequestBody PersonVO PersonVO){
-                return PersonServices.update(PersonVO);
+                return personServices.update(PersonVO);
         }
         @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
             public ResponseEntity<?> delete(@PathVariable(value = "id") Long id){
-                PersonServices.delete(id);
+                personServices.delete(id);
                 return ResponseEntity.noContent().build();
         }
 

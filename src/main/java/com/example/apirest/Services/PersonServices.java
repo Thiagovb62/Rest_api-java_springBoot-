@@ -4,10 +4,10 @@ import com.example.apirest.Exceptions.ResourceNotFoundException;
 import com.example.apirest.Model.Person;
 import com.example.apirest.Repositories.PersonRepository;
 import com.example.apirest.data.vo.v1.PersonVO;
+import com.example.apirest.mapper.DozerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
@@ -24,19 +24,24 @@ public class PersonServices {
 
         logger.info("find one person");
 
-        return personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person not found"));
+        var entity = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person not found"));
+
+        return DozerMapper.parseObject(entity, PersonVO.class);
     }
     public List<PersonVO> findAll(){
 
         logger.info("find all person");
 
-        return  personRepository.findAll();
+        return  DozerMapper.parseListObjects(personRepository.findAll(),PersonVO.class);
 
     }
     public PersonVO create(PersonVO person){
         logger.info("create person");
 
-        return personRepository.save(person);
+        var entity = DozerMapper.parseObject(person, Person.class);
+
+        var vo = DozerMapper.parseObject(personRepository.save(entity), PersonVO.class);
+        return vo;
     }
     public PersonVO update(PersonVO person){
         logger.info("update person");
@@ -47,7 +52,8 @@ public class PersonServices {
         entity.setAge(person.getAge());
         entity.setAddress(person.getAddress());
 
-        return personRepository.save(person);
+        var vo = DozerMapper.parseObject(personRepository.save(entity), PersonVO.class);
+        return vo;
     }
     public void delete(Long id){
         logger.info("delete a person");
