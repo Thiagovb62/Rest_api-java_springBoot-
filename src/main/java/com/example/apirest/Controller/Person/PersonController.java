@@ -3,6 +3,7 @@ package com.example.apirest.Controller.Person;
 import com.example.apirest.Services.PersonServices;
 import com.example.apirest.data.vo.v1.PersonVO;
 
+import com.example.apirest.data.vo.v2.PersonVOV2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,10 @@ public class PersonController {
         @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
             public PersonVO create(@RequestBody PersonVO PersonVO){
                 return personServices.create(PersonVO);
+        }
+        @PostMapping(value = "/v2", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+            public PersonVOV2 createV2(@RequestBody PersonVOV2 personVOV2){
+            return personServices.createV2(personVOV2);
         }
         @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
             public PersonVO update(@RequestBody PersonVO PersonVO){

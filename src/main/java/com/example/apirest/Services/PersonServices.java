@@ -4,7 +4,9 @@ import com.example.apirest.Exceptions.ResourceNotFoundException;
 import com.example.apirest.Model.Person;
 import com.example.apirest.Repositories.PersonRepository;
 import com.example.apirest.data.vo.v1.PersonVO;
+import com.example.apirest.data.vo.v2.PersonVOV2;
 import com.example.apirest.mapper.DozerMapper;
+import com.example.apirest.mapper.custom.PersonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,9 @@ public class PersonServices {
 
     @Autowired
     PersonRepository personRepository;
+
+    @Autowired
+    PersonMapper personMapper;
 
     public PersonVO findById(Long id){
 
@@ -61,5 +66,14 @@ public class PersonServices {
         var entity = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person not found"));
         personRepository.delete(entity);
     };
+
+    public PersonVOV2 createV2(PersonVOV2 personVOV2) {
+        logger.info("create person");
+
+        var entity = personMapper.convertVoToEntity(personVOV2);
+
+        var vo = personMapper.convertEntityToVO(personRepository.save(entity));
+        return vo;
+    }
 
 }
