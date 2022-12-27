@@ -1,12 +1,15 @@
 package com.example.apirest.data.vo.v1;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 
-
+@JsonPropertyOrder({"id","age","first_name","address"})
 public class PersonVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -14,10 +17,12 @@ public class PersonVO implements Serializable {
 
     private Long id;
 
+    @JsonProperty("first_name")
     private String name;
 
     private Integer age;
 
+    //@JsonIgnore to ignore the field
     private String address;
 
     public PersonVO() {
