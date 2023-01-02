@@ -44,6 +44,7 @@ public class PersonServices {
         logger.info("find all person");
 
         var persons = DozerMapper.parseListObjects(personRepository.findAll(),PersonVO.class);
+        persons.stream().forEach(p -> p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()));
         return persons;
 
     }
@@ -54,6 +55,7 @@ public class PersonServices {
 
         var vo = DozerMapper.parseObject(personRepository.save(entity), PersonVO.class);
         vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
+
         return vo;
     }
     public PersonVO update(PersonVO person){

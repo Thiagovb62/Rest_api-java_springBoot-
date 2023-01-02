@@ -16,7 +16,8 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
 
     private static final long serialVersionUID = 1L;
 
-@Mapping("id")
+    @JsonProperty("id")
+    @Mapping("id")
     private Long key;
 
     @JsonProperty("first_name")

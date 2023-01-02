@@ -28,8 +28,8 @@ public class PersonController {
         }
         @PostMapping(value = "/", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
                 consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-            public PersonVO create(@RequestBody PersonVO PersonVO){
-                return personServices.create(PersonVO);
+            public PersonVO create(@RequestBody PersonVO personVO){
+                return personServices.create(personVO);
         }
         @PostMapping(value = "/v2", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
                 consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -38,8 +38,8 @@ public class PersonController {
         }
         @PutMapping(value = "/update", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
                 consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-            public PersonVO update(@RequestBody PersonVO PersonVO){
-                return personServices.update(PersonVO);
+            public PersonVO update(@RequestBody PersonVO personVO){
+                return personServices.update(personVO);
         }
         @DeleteMapping(value = "/delete/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
             public ResponseEntity<?> delete(@PathVariable(value = "id") Long id){
