@@ -4,6 +4,7 @@ import com.example.apirest.Model.Person;
 import com.example.apirest.Repositories.PersonRepository;
 import com.example.apirest.Services.PersonServices;
 
+import com.example.apirest.data.vo.v1.PersonVO;
 import com.example.apirest.unitests.mapper.mocks.MockPerson;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -55,23 +56,68 @@ class PersonServicesTest {
 
     }
 
-    @Test
-    void findAll() {
-    }
 
     @Test
     void create() {
+        Person person = input.mockEntity(1);
+        Person persisted = person;
+        persisted.setId(1l);
+
+        PersonVO personVO = input.mockVO(1);
+        personVO.setKey(1l);
+
+        when(personRepository.save(person)).thenReturn(persisted);
+
+        var result  = personServices.create(personVO);
+
+        assertNotNull(result);
+        assertNotNull(result.getKey());
+        assertNotNull(result.getLinks());
+
+        assertTrue(result.toString().contains("links: [</person/v1/1>;rel=\"self\"]"));
+        assertEquals("Addres Test1", result.getAddress());
+        assertEquals("First Name Test1", result.getName());
+        assertEquals(1,result.getAge());
+
+
     }
 
     @Test
     void update() {
+        Person person = input.mockEntity(1);
+        person.setId(1l);
+
+        Person persisted = person;
+        persisted.setId(1l);
+
+        PersonVO personVO = input.mockVO(1);
+        personVO.setKey(1l);
+
+        when(personRepository.findById(1l)).thenReturn(Optional.of(person));
+        when(personRepository.save(person)).thenReturn(persisted);
+
+        var result  = personServices.update(personVO);
+
+        assertNotNull(result);
+        assertNotNull(result.getKey());
+        assertNotNull(result.getLinks());
+
+        assertTrue(result.toString().contains("links: [</person/v1/1>;rel=\"self\"]"));
+        assertEquals("Addres Test1", result.getAddress());
+        assertEquals("First Name Test1", result.getName());
+        assertEquals(1,result.getAge());
+
     }
 
     @Test
     void delete() {
-    }
+        Person person = input.mockEntity(1);
+        person.setId(1l);
 
-    @Test
-    void createV2() {
+        PersonVO personVO = input.mockVO(1);
+
+        when(personRepository.findById(1l)).thenReturn(Optional.of(person));
+
+       personServices.delete(1L);
     }
 }
