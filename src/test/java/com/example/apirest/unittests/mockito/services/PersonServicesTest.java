@@ -1,5 +1,6 @@
 package com.example.apirest.unittests.mockito.services;
 
+import com.example.apirest.Exceptions.RequiredObjectIsNullException;
 import com.example.apirest.Model.Person;
 import com.example.apirest.Repositories.PersonRepository;
 import com.example.apirest.Services.PersonServices;
@@ -81,7 +82,28 @@ class PersonServicesTest {
 
 
     }
+    //para validar qualquer regra de negocio que seja necessario!
+    @Test
+    void createNullTest() {
+        Exception exception = assertThrows(RequiredObjectIsNullException.class, () -> {
+            personServices.create(null);
+        });
+        String expected = "It is not allowed to persist a null object";
+        String actual = exception.getMessage();
 
+        assertTrue( actual.contains(expected));
+    }
+    @Test
+    void updateWithNullPerson() {
+        Exception exception = assertThrows(RequiredObjectIsNullException.class, () -> {
+            personServices.update(null);
+        });
+        String expected = "It is not allowed to persist a null object";
+        String actual = exception.getMessage();
+
+        assertTrue( actual.contains(expected));
+
+    }
     @Test
     void update() {
         Person person = input.mockEntity(1);

@@ -1,6 +1,7 @@
 package com.example.apirest.Services;
 
 import com.example.apirest.Controller.Person.PersonController;
+import com.example.apirest.Exceptions.RequiredObjectIsNullException;
 import com.example.apirest.Exceptions.ResourceNotFoundException;
 import com.example.apirest.Model.Person;
 import com.example.apirest.Repositories.PersonRepository;
@@ -49,6 +50,8 @@ public class PersonServices {
 
     }
     public PersonVO create(PersonVO person){
+
+        if(person == null) throw new RequiredObjectIsNullException();
         logger.info("create person");
 
         var entity = DozerMapper.parseObject(person, Person.class);
@@ -59,6 +62,8 @@ public class PersonServices {
         return vo;
     }
     public PersonVO update(PersonVO person){
+
+        if(person == null) throw new RequiredObjectIsNullException();
         logger.info("update person");
 
         var entity = personRepository.findById(person.getKey()).orElseThrow(() -> new ResourceNotFoundException("Person not found"));
