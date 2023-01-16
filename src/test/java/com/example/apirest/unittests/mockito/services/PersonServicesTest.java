@@ -15,6 +15,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -37,6 +38,27 @@ class PersonServicesTest {
     void setUp() throws Exception {
         input = new MockPerson();
         MockitoAnnotations.openMocks(this);
+    }
+    @Test
+    void testFindAll(){
+        List<Person> persons = input.mockEntityList();
+
+        when(personRepository.findAll()).thenReturn(persons);
+
+        var result = personServices.findAll();
+        assertNotNull(result);
+        assertEquals(14, result.size());
+
+        var personOne = result.get(1);
+
+        assertNotNull(personOne);
+        assertNotNull(personOne.getKey());
+        assertNotNull(personOne.getLinks());
+        System.out.println(personOne.toString());
+        assertTrue(personOne.toString().contains("links: [</person/v1/1>;rel=\"self\"]"));
+        assertEquals("Addres Test1", personOne.getAddress());
+        assertEquals("First Name Test1", personOne.getName());
+        assertEquals(1,personOne.getAge());
     }
     @Test
     void findById() {
