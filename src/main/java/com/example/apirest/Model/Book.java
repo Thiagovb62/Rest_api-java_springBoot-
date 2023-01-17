@@ -10,9 +10,9 @@ import java.util.Objects;
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "tittle", length = 80)
+    @Column(name = "title", length = 80)
     private String title;
     @Column(name="price",nullable = false, length = 80)
     private Float price;
