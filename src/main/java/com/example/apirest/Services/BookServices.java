@@ -32,13 +32,25 @@ public class BookServices {
 
     public BookVO findById(Long id){
 
-        logger.info("find one person");
+        logger.info("find one Book");
 
         var entity = bookRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Book not found"));
 
         var vo = DozerMapper.parseObject(entity, BookVO.class);
 
         vo.add(linkTo(methodOn(BookController.class).findById(id)).withSelfRel());
+
+        return vo;
+    }
+    public BookVO create(BookVO book){
+
+        logger.info("create Book");
+
+        var entity = DozerMapper.parseObject(book, com.example.apirest.Model.Book.class);
+
+        var vo = DozerMapper.parseObject(bookRepository.save(entity), BookVO.class);
+
+        vo.add(linkTo(methodOn(BookController.class).findById(vo.getKey())).withSelfRel());
 
         return vo;
     }

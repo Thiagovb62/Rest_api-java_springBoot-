@@ -6,17 +6,17 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "book")
+@Table(name = "books")
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name = "Tittle", nullable = false, length = 80)
+    @Column(name = "tittle", length = 80)
     private String title;
-    @Column(name="Price",nullable = false, length = 80)
+    @Column(name="price",nullable = false, length = 80)
     private Float price;
-    @Column(name="Author",nullable = false, length = 80)
+    @Column(name="author")
     private String author;
 
     public Book() {
