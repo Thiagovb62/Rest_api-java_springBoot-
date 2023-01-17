@@ -12,12 +12,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/book/v1")
 @Tag(name = "Book Endpoint",description = "Endpoint for book")
 public class BookController {
     @Autowired
-    BookServices bookServices;
+    private BookServices bookServices;
+
+
+    @GetMapping(value = "/all",produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @Operation(summary = "Find book by id", description = "Find book by id",
+            tags = {"Book Endpoint"}
+            , responses = {
+            @ApiResponse(responseCode = "200", description = "Success",
+            content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = BookVO.class))
+            }),
+            @ApiResponse(responseCode = "404", description = "Not found",content = @Content),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",content = @Content),
+            @ApiResponse(responseCode = "404", description = "Not Found",content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error",content = @Content)
+    })
+    public List<BookVO> findAll(){
+        return  bookServices.findaAllBooks();
+    }
 
     @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @Operation(summary = "Find book by id", description = "Find book by id",
@@ -33,7 +53,7 @@ public class BookController {
             @ApiResponse(responseCode = "500", description = "Internal server error",content = @Content)
     })
     public BookVO findById(@PathVariable(value = "id") Long id){
-        return bookServices.findById(id);
+        return bookServices.findByBookId(id);
     }
 
     @PostMapping(value = "/", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
