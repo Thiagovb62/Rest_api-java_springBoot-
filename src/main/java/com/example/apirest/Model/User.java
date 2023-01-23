@@ -19,7 +19,7 @@ public class User implements UserDetails, Serializable {
     private Long id;
 
     @Column(name = "user_name", nullable = false, unique = true)
-    private String name;
+    private String userName;
 
 
     @Column(name = "full_name", nullable = false)
@@ -67,7 +67,7 @@ public class User implements UserDetails, Serializable {
 
     @Override
     public String getUsername() {
-        return this.name;
+        return this.userName;
     }
 
     @Override
@@ -99,11 +99,11 @@ public class User implements UserDetails, Serializable {
     }
 
     public String getName() {
-        return name;
+        return userName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.userName = name;
     }
 
     public String getFullName() {
