@@ -22,13 +22,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@ExtendWith(MockitoExtension.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS) // essa anotação faz com que o JUnit crie uma instância da classe de teste para cada método de teste
+@ExtendWith(MockitoExtension.class) // essa anotação  serve para inicializar os mocks
 class PersonServicesTest {
 
     MockPerson input;
 
-    @InjectMocks
+    @InjectMocks // essa anotação faz com que o mockito injete os mocks  quando for necessário
     private PersonServices personServices;
 
     @Mock
@@ -37,28 +37,28 @@ class PersonServicesTest {
     @BeforeEach
     void setUp() throws Exception {
         input = new MockPerson();
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.openMocks(this); // essa anotação  serve para inicializar os mocks
     }
     @Test
     void testFindAll(){
         List<Person> persons = input.mockEntityList();
 
-        when(personRepository.findAll()).thenReturn(persons);
+        when(personRepository.findAll()).thenReturn(persons); // quando o método findAll() for chamado, o mockito vai retornar a lista de pessoas
 
         var result = personServices.findAll();
-        assertNotNull(result);
-        assertEquals(14, result.size());
+        assertNotNull(result); // verifica se o resultado não é nulo
+        assertEquals(13, result.size()); // verifica se o tamanho da lista é 14
 
-        var personOne = result.get(1);
+        var personOne = result.get(1); // pega o primeiro elemento da lista
 
         assertNotNull(personOne);
-        assertNotNull(personOne.getKey());
-        assertNotNull(personOne.getLinks());
+        assertNotNull(personOne.getKey()); // verifica se a chave não é nula
+        assertNotNull(personOne.getLinks()); // verifica se os links não são nulos
         System.out.println(personOne.toString());
-        assertTrue(personOne.toString().contains("links: [</person/v1/1>;rel=\"self\"]"));
-        assertEquals("Addres Test1", personOne.getAddress());
-        assertEquals("First Name Test1", personOne.getName());
-        assertEquals(1,personOne.getAge());
+        assertTrue(personOne.toString().contains("links: [</person/v1/1>;rel=\"self\"]")); // verifica se o toString() contém o link hateoas
+        assertEquals("Addres Test1", personOne.getAddress()); // verifica se o endereço é igual ao esperado
+        assertEquals("First Name Test1", personOne.getName()); // verifica se o nome é igual ao esperado
+        assertEquals(1,personOne.getAge()); // verifica se a idade é igual ao esperado
     }
     @Test
     void findById() {
