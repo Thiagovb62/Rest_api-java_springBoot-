@@ -26,7 +26,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class) // essa anotação  serve para inicializar os mocks
 class PersonServicesTest {
 
-    MockPerson input;
+    MockPerson input; // cria uma instância da classe Person
 
     @InjectMocks // essa anotação faz com que o mockito injete os mocks  quando for necessário
     private PersonServices personServices;
@@ -47,7 +47,7 @@ class PersonServicesTest {
 
         var result = personServices.findAll();
         assertNotNull(result); // verifica se o resultado não é nulo
-        assertEquals(13, result.size()); // verifica se o tamanho da lista é 14
+        assertEquals(6, result.size()); // verifica se o tamanho da lista é 13
 
         var personOne = result.get(1); // pega o primeiro elemento da lista
 
@@ -59,6 +59,51 @@ class PersonServicesTest {
         assertEquals("Addres Test1", personOne.getAddress()); // verifica se o endereço é igual ao esperado
         assertEquals("First Name Test1", personOne.getName()); // verifica se o nome é igual ao esperado
         assertEquals(1,personOne.getAge()); // verifica se a idade é igual ao esperado
+
+        var personTwo = result.get(2); // pega o último elemento da lista
+
+        assertNotNull(personTwo);
+        assertNotNull(personTwo.getKey()); // verifica se a chave não é nula
+        assertNotNull(personTwo.getLinks()); // verifica se os links não são nulos
+        System.out.println(personTwo.toString());
+        assertTrue(personTwo.toString().contains("links: [</person/v1/2>;rel=\"self\"]")); // verifica se o toString() contém o link hateoas
+        assertEquals("Addres Test2", personTwo.getAddress()); // verifica se o endereço é igual ao esperado
+        assertEquals("First Name Test2", personTwo.getName()); // verifica se o nome é igual ao esperado
+        assertEquals(2,personTwo.getAge()); // verifica se a idade é igual ao esperado
+
+        var personThree = result.get(3); // pega o último elemento da lista
+
+        assertNotNull(personThree);
+        assertNotNull(personThree.getKey()); // verifica se a chave não é nula
+        assertNotNull(personThree.getLinks()); // verifica se os links não são nulos
+        System.out.println(personThree.toString());
+        assertTrue(personThree.toString().contains("links: [</person/v1/3>;rel=\"self\"]")); // verifica se o toString() contém o link hateoas
+        assertEquals("Addres Test3", personThree.getAddress()); // verifica se o endereço é igual ao esperado
+        assertEquals("First Name Test3", personThree.getName()); // verifica se o nome é igual ao esperado
+        assertEquals(3,personThree.getAge()); // verifica se a idade é igual ao esperado
+
+        var personFour = result.get(4); // pega o último elemento da lista
+
+        assertNotNull(personFour);
+        assertNotNull(personFour.getKey()); // verifica se a chave não é nula
+        assertNotNull(personFour.getLinks()); // verifica se os links não são nulos
+        System.out.println(personFour.toString());
+        assertTrue(personFour.toString().contains("links: [</person/v1/4>;rel=\"self\"]")); // verifica se o toString() contém o link hateoas
+        assertEquals("Addres Test4", personFour.getAddress()); // verifica se o endereço é igual ao esperado
+        assertEquals("First Name Test4", personFour.getName()); // verifica se o nome é igual ao esperado
+        assertEquals(4,personFour.getAge()); // verifica se a idade é igual ao esperado
+
+        var personFive = result.get(5); // pega o último elemento da lista
+
+        assertNotNull(personFive);
+        assertNotNull(personFive.getKey()); // verifica se a chave não é nula
+        assertNotNull(personFive.getLinks()); // verifica se os links não são nulos
+        System.out.println(personFive.toString());
+        assertTrue(personFive.toString().contains("links: [</person/v1/5>;rel=\"self\"]")); // verifica se o toString() contém o link hateoas
+        assertEquals("Addres Test5", personFive.getAddress()); // verifica se o endereço é igual ao esperado
+        assertEquals("First Name Test5", personFive.getName()); // verifica se o nome é igual ao esperado
+        assertEquals(5,personFive.getAge()); // verifica se a idade é igual ao esperado
+
     }
     @Test
     void findById() {
